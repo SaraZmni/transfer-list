@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [left, setLeft] = useState([0, 1, 2, 3]);
+  const [right, setRight] = useState([4, 5, 6, 7]);
+
+  const customList = (items: number[]) => (
+    <div className="list">
+      <ul>
+        {items.map((value) => {
+          const labelId = `transfer-list-item-${value}-label`;
+          return (
+            <li key={value}>
+              <input type="checkbox" id={labelId} />
+              <label htmlFor={labelId}>List item {value + 1}</label>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="transfer-list">
+      <div className="list-container">{customList(left)}</div>
+
+      <div className="buttons-container">
+        <button>&gt;&gt;</button>
+        <button>&gt;</button>
+        <button>&lt;</button>
+        <button>&lt;&lt;</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <div className="list-container">{customList(right)}</div>
+    </div>
+  );
 }
 
-export default App
+export default App;
